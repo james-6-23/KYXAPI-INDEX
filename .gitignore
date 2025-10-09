@@ -1,0 +1,21 @@
+# Kilocode 配置目录
+.kilocode/
+
+# 常见的忽略文件
+.DS_Store
+Thumbs.db
+
+# 编辑器配置
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 依赖目录
+node_modules/
