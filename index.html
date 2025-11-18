@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KYX API 公益站 · 让 AI 技术普惠每一个人</title>
+    <title>KFC API 公益站 · 让 AI 技术普惠每一个人</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         // 预先设置主题以避免闪烁
         if (localStorage.getItem('theme') === 'dark' ||
@@ -17,17 +18,24 @@
         tailwind.config = {
             darkMode: 'class',
             theme: {
+                fontFamily: {
+                    sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                },
                 extend: {
                     colors: {
-                        primary: '#10b981', // 公益绿色
-                        primaryLight: '#34d399',
-                        primaryDark: '#059669',
-                        secondary: '#3b82f6',
-                        accent: '#8b5cf6',
-                        darkBg: '#1a1a1a',
-                        lightBg: '#fdfdfd',
-                        cardBg: 'rgba(255, 255, 255, 0.7)',
-                        darkCard: 'rgba(45, 45, 45, 0.7)'
+                        primary: '#dc2626', // 更深沉的科技红
+                        primaryLight: '#ef4444',
+                        primaryDark: '#991b1b',
+                        secondary: '#f59e0b',
+                        accent: '#e11d48',
+                        darkBg: '#0f172a', // 深蓝黑科技背景
+                        lightBg: '#f8fafc', // 冷灰白背景
+                        cardBg: 'rgba(255, 255, 255, 0.8)',
+                        darkCard: 'rgba(30, 41, 59, 0.7)' // Slate-800 based
+                    },
+                    boxShadow: {
+                        'tech': '0 4px 6px -1px rgba(220, 38, 38, 0.1), 0 2px 4px -1px rgba(220, 38, 38, 0.06)',
+                        'tech-hover': '0 10px 15px -3px rgba(220, 38, 38, 0.2), 0 4px 6px -2px rgba(220, 38, 38, 0.1)',
                     }
                 }
             }
@@ -36,29 +44,25 @@
     <style type="text/tailwindcss">
         @layer utilities {
             .card-shadow {
-                box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1),
-                            0 10px 20px -5px rgba(0, 0, 0, 0.04),
-                            0 0 0 1px rgba(0, 0, 0, 0.02);
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+                border: 1px solid rgba(226, 232, 240, 0.8);
+                transition: all 0.3s ease;
             }
             .dark .card-shadow {
-                box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4),
-                            0 10px 20px -5px rgba(0, 0, 0, 0.2),
-                            0 0 0 1px rgba(255, 255, 255, 0.05);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+                border: 1px solid rgba(51, 65, 85, 0.5);
             }
             .card-shadow:hover {
-                box-shadow: 0 30px 60px -15px rgba(16, 185, 129, 0.2),
-                            0 15px 30px -10px rgba(0, 0, 0, 0.1),
-                            0 0 0 1px rgba(16, 185, 129, 0.1);
-                transform: translateY(-4px);
+                box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.1), 0 4px 6px -2px rgba(220, 38, 38, 0.05);
+                border-color: rgba(220, 38, 38, 0.3);
+                transform: translateY(-2px);
             }
             .dark .card-shadow:hover {
-                box-shadow: 0 30px 60px -15px rgba(16, 185, 129, 0.3),
-                            0 15px 30px -10px rgba(0, 0, 0, 0.4),
-                            0 0 0 1px rgba(16, 185, 129, 0.2);
+                box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.2), 0 4px 6px -2px rgba(220, 38, 38, 0.1);
+                border-color: rgba(220, 38, 38, 0.4);
             }
             .gradient-bg {
-                background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+                background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
             }
             .dark .gradient-bg {
                 background: linear-gradient(135deg, rgba(45, 45, 45, 0.7) 0%, rgba(26, 26, 26, 0.7) 100%);
@@ -72,7 +76,7 @@
         /* 背景：增强版明暗双模式适配 */
         :root {
             --color-bg: #0f0f0f;
-            --primary-glow: rgba(16, 185, 129, 0.15);
+            --primary-glow: rgba(239, 68, 68, 0.15);
         }
 
         /* 基础背景色（暗色模式增强） */
@@ -88,18 +92,18 @@
         .bg-decoration {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.10) 0%, transparent 50%),
-                        radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+            background: radial-gradient(circle at 20% 80%, rgba(239, 68, 68, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.10) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.05) 0%, transparent 70%);
             z-index: 0;
             pointer-events: none;
             animation: glowPulse 8s ease-in-out infinite;
         }
         /* 亮色模式下优化 */
         html:not(.dark) .bg-decoration {
-            background: radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 70%);
+            background: radial-gradient(circle at 20% 80%, rgba(239, 68, 68, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.04) 0%, transparent 70%);
         }
 
         @keyframes glowPulse {
@@ -111,18 +115,17 @@
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             background-image:
-                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 50px),
-                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 50px);
-            background-size: 50px 50px;
-            animation: gridMove 30s linear infinite;
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
             z-index: 0;
             pointer-events: none;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
         }
-        /* 亮色模式下将网格线改为深色低透明度 */
         html:not(.dark) .grid-bg {
             background-image:
-                repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.035) 0 1px, transparent 1px 50px),
-                repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.035) 0 1px, transparent 1px 50px);
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
         }
 
         @keyframes gridMove {
@@ -360,13 +363,13 @@
 
         /* 流动渐变动画 - 增强版公益绿色主题 */
         .animated-gradient {
-            background: linear-gradient(-45deg, #10b981, #3b82f6, #34d399, #8b5cf6, #06b6d4);
+            background: linear-gradient(-45deg, #ef4444, #f59e0b, #f87171, #fbbf24, #dc2626);
             background-size: 400% 400%;
             animation: gradientFlow 10s ease infinite;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 2px 8px rgba(16, 185, 129, 0.3));
+            filter: drop-shadow(0 2px 8px rgba(239, 68, 68, 0.3));
         }
 
         @keyframes gradientFlow {
@@ -390,8 +393,8 @@
         /* 公益标签样式 */
         .charity-tag {
             display: inline-block;
-            background-color: #d1fae5;
-            color: #059669;
+            background-color: #fee2e2;
+            color: #b91c1c;
             padding: 0.2rem 0.6rem;
             border-radius: 0.5rem;
             font-weight: 600;
@@ -402,8 +405,8 @@
         }
 
         .dark .charity-tag {
-            background-color: #064e3b;
-            color: #34d399;
+            background-color: #7f1d1d;
+            color: #f87171;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
@@ -455,7 +458,7 @@
         .ripple {
             position: absolute;
             border-radius: 50%;
-            background: rgba(16, 185, 129, 0.7);
+            background: rgba(239, 68, 68, 0.7);
             transform: scale(0);
             animation: ripple 0.6s linear;
             pointer-events: none;
@@ -581,25 +584,25 @@
 
         .category-btn:hover {
             background: #f3f4f6;
-            color: #10b981;
-            border-color: #10b981;
+            color: #dc2626;
+            border-color: #dc2626;
         }
 
         .dark .category-btn:hover {
             background: rgba(75, 85, 99, 0.7);
-            color: #34d399;
-            border-color: #34d399;
+            color: #ef4444;
+            border-color: #ef4444;
         }
 
         .category-active {
-            background: linear-gradient(135deg, #10b981, #059669) !important;
+            background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
             color: white !important;
-            border-color: #10b981 !important;
-            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
+            border-color: #ef4444 !important;
+            box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);
         }
 
         .dark .category-active {
-            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.5);
         }
 
         /* 模型卡片优化 - 增强版 */
@@ -619,14 +622,14 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.4), transparent);
             transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none;
         }
 
         .model-card:hover {
-            border-color: rgba(16, 185, 129, 0.3);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+            border-color: rgba(239, 68, 68, 0.3);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
             transform: translateY(-2px) scale(1.02);
         }
 
@@ -639,8 +642,8 @@
         }
 
         .dark .model-card:hover {
-            border-color: rgba(16, 185, 129, 0.5);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            border-color: rgba(239, 68, 68, 0.5);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
         }
 
         /* 按钮增强效果 */
@@ -668,17 +671,17 @@
             height: 300px;
         }
 
-        /* 毛玻璃卡片增强 */
+        /* 毛玻璃卡片增强 - 科技感优化 */
         .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
         }
 
         .dark .glass-card {
-            background: rgba(45, 45, 45, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         /* 光晕效果 */
@@ -691,7 +694,7 @@
             position: absolute;
             inset: -2px;
             border-radius: inherit;
-            background: linear-gradient(45deg, #10b981, #3b82f6, #8b5cf6, #10b981);
+            background: linear-gradient(45deg, #ef4444, #f59e0b, #f43f5e, #ef4444);
             background-size: 300% 300%;
             opacity: 0;
             transition: opacity 0.3s;
@@ -745,7 +748,7 @@
         .gradient-border {
             position: relative;
             background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box,
-                        linear-gradient(45deg, #10b981, #3b82f6, #8b5cf6) border-box;
+                        linear-gradient(45deg, #ef4444, #f59e0b, #f43f5e) border-box;
             border: 2px solid transparent;
             animation: borderGlow 3s ease infinite;
         }
@@ -753,6 +756,66 @@
         @keyframes borderGlow {
             0%, 100% { filter: brightness(1); }
             50% { filter: brightness(1.3); }
+        }
+
+        /* 协议弹窗样式 */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-backdrop.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 900px;
+            max-height: 85vh;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark .modal-content {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-backdrop.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-body {
+            overflow-y: auto;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .modal-body::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.5);
+            border-radius: 3px;
         }
     </style>
 </head>
@@ -810,44 +873,44 @@
     </header>
 
     <!-- 主要内容区域 -->
-    <main class="flex-grow flex flex-col items-center justify-start px-4 pt-4 md:pt-6 pb-6 md:pb-8">
+    <main class="flex-grow flex flex-col items-center justify-start px-4 pt-8 pb-10 font-sans">
         <!-- 网站名称 -->
-        <div class="text-center mb-8 md:mb-12 animate-slide-up" style="animation-delay: 0.5s">
+        <div class="text-center mb-8 animate-slide-up" style="animation-delay: 0.5s">
             <h1
-                class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-white mb-3 md:mb-4 animate-float-gentle">
-                <span class="animated-gradient">KYX-API</span>
+                class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight animate-float-gentle">
+                <span class="animated-gradient">KFC-API</span>
             </h1>
-            <p class="text-gray-600 dark:text-gray-300 mb-4 md:mb-6 max-w-2xl mx-auto text-base md:text-lg leading-relaxed animate-fade-in"
+            <p class="text-gray-500 dark:text-gray-400 mb-6 max-w-xl mx-auto text-sm md:text-base leading-relaxed animate-fade-in"
                 style="animation-delay: 0.8s">
-                免费开放的 AI 工具平台，让人工智能技术真正普惠每一个人，赋能教育、无障碍服务与公益行动。
+                免费开放的 AI 工具平台，让人工智能技术真正普惠每一个人。
             </p>
 
             <!-- 按钮组 - 开始使用按钮 -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
                 <button onclick="window.location.href='#guide'"
-                    class="btn-enhanced ripple-container bg-gradient-to-r from-primary to-primaryDark text-white font-bold py-3 md:py-4 px-6 md:px-10 rounded-full transition-all duration-500 transform hover:scale-110 shadow-xl hover:shadow-2xl animate-pulse-gentle group relative z-10">
+                    class="btn-enhanced ripple-container bg-primary hover:bg-primaryDark text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-tech hover:shadow-tech-hover group relative z-10 text-sm">
                     <span class="flex items-center relative z-10">
                         <i
-                            class="fas fa-heart mr-2 md:mr-3 icon-spin-hover text-sm md:text-base"></i>
-                        <span class="text-sm md:text-base">开始使用</span>
+                            class="fas fa-rocket mr-2 icon-spin-hover"></i>
+                        <span>开始使用</span>
                     </span>
                 </button>
                 <button onclick="window.location.href='#faq'"
-                    class="btn-enhanced ripple-container bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 font-bold py-3 md:py-4 px-6 md:px-10 rounded-full transition-all duration-500 transform hover:scale-110 shadow-xl border border-gray-300 dark:border-gray-600 hover:shadow-2xl hover:text-primaryDark dark:hover:text-primaryLight group relative z-10">
+                    class="btn-enhanced ripple-container bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-300 font-semibold py-2.5 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 border border-gray-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary group relative z-10 text-sm">
                     <span class="flex items-center relative z-10">
                         <i
-                            class="fas fa-question-circle mr-2 md:mr-3 icon-spin-hover text-sm md:text-base"></i>
-                        <span class="text-sm md:text-base">常见问题Q&A</span>
+                            class="fas fa-question-circle mr-2 icon-spin-hover"></i>
+                        <span>常见问题</span>
                     </span>
                 </button>
             </div>
         </div>
 
         <!-- 核心服务卡片容器 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 w-full max-w-5xl mb-8 md:mb-12 animate-slide-up"
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-4xl mb-8 animate-slide-up"
             style="animation-delay: 1.3s">
             <!-- 快速使用卡片 -->
-            <div class="glass-card backdrop-blur rounded-2xl card-shadow p-4 md:p-8 transition-all duration-500 animate-fade-in"
+            <div class="glass-card backdrop-blur rounded-xl card-shadow p-5 transition-all duration-500 animate-fade-in"
                 style="animation-delay: 1.5s">
                 <div class="flex justify-between items-start mb-4 md:mb-6">
                     <div class="flex items-center">
@@ -860,7 +923,7 @@
                             <p class="text-gray-500 dark:text-gray-400 text-xs md:text-sm">一键开始体验 AI 服务</p>
                         </div>
                     </div>
-                    <button onclick="copyToClipboard('https://api.kkyyxx.xyz')"
+                    <button onclick="copyToClipboard('https://kfc-api.sxxe.net')"
                         class="ripple-container text-gray-400 hover:text-primaryDark dark:text-gray-500 dark:hover:text-primaryLight transition-colors duration-300 p-2 md:p-3 rounded-full hover:bg-primaryLight dark:hover:bg-gray-700 transform hover:scale-110 hover:rotate-12">
                         <i class="fas fa-copy text-base md:text-xl"></i>
                     </button>
@@ -869,12 +932,12 @@
                     class="flex items-center p-3 md:p-4 bg-primaryLight dark:bg-gray-700 bg-opacity-50 dark:bg-opacity-50 rounded-xl mb-3 md:mb-4">
                     <i class="fas fa-link text-primaryDark mr-2 md:mr-3 text-sm"></i>
                     <span
-                        class="text-gray-700 dark:text-gray-200 break-all text-xs md:text-sm font-mono select-all">https://api.kkyyxx.xyz</span>
+                        class="text-gray-700 dark:text-gray-200 break-all text-xs md:text-sm font-mono select-all">https://kfc-api.sxxe.net</span>
                 </div>
 
                 <!-- 获取令牌按钮 -->
                 <div class="mb-4 md:mb-6">
-                    <button onclick="window.open('https://api.kkyyxx.xyz/console/token', '_blank')"
+                    <button onclick="window.open('https://kfc-api.sxxe.net/console/token', '_blank')"
                         class="ripple-container w-full flex items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-primary to-primaryDark hover:from-primaryDark hover:to-primary text-white font-medium py-2 md:py-3 px-4 md:px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl">
                         <i class="fas fa-key text-sm md:text-base"></i>
                         <span class="text-sm md:text-base">获取令牌</span>
@@ -941,69 +1004,53 @@
             </div>
 
             <!-- 重要提示卡片 -->
-            <div class="glass-card backdrop-blur rounded-2xl card-shadow p-4 md:p-8 transition-all duration-500 animate-fade-in"
+            <div class="glass-card backdrop-blur rounded-xl card-shadow p-5 transition-all duration-500 animate-fade-in"
                 style="animation-delay: 1.7s">
                 <div class="flex justify-between items-start mb-4 md:mb-6">
                     <div class="flex items-center">
                         <div
-                            class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center mr-3 md:mr-4 animate-pulse-gentle shadow-lg">
-                            <i class="fas fa-exclamation-triangle text-white text-sm md:text-base"></i>
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-primary/10 flex items-center justify-center mr-3 md:mr-4 animate-pulse-gentle">
+                            <i class="fas fa-bell text-primary text-sm md:text-base"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg md:text-2xl font-bold text-gray-800 dark:text-white">重要提示</h3>
-                            <p class="text-gray-500 dark:text-gray-400 text-xs md:text-sm">请仔细阅读以下重要信息</p>
+                            <h3 class="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">重要提示</h3>
+                            <p class="text-gray-500 dark:text-gray-400 text-xs md:text-sm">使用前请务必阅读</p>
                         </div>
                     </div>
                 </div>
-                <div class="space-y-2 md:space-y-3">
-                    <div class="flex items-start p-2 md:p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
-                        <i class="fas fa-clock text-amber-500 mr-2 md:mr-3 text-xs md:text-sm mt-1"></i>
-                        <span class="text-amber-700 dark:text-amber-300 text-xs md:text-sm">为保障服务稳定，API 调用频率限制为 12RPM
-                            (每分钟请求数)</span>
+                <div class="space-y-2">
+                    <div class="flex items-start p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700">
+                        <i class="fas fa-tachometer-alt text-primary mr-2.5 text-xs md:text-sm mt-0.5"></i>
+                        <span class="text-slate-600 dark:text-slate-300 text-xs md:text-sm">API 调用频率限制为 <strong>12 RPM</strong> (每分钟请求数)</span>
                     </div>
-                    <div class="flex items-start p-2 md:p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                        <i class="fas fa-handshake text-blue-500 mr-2 md:mr-3 text-xs md:text-sm mt-1"></i>
-                        <span class="text-blue-700 dark:text-blue-300 text-xs md:text-sm">请合理使用 API
-                            资源，避免滥用，共同维护服务稳定</span>
+                    <div class="flex items-start p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700">
+                        <i class="fas fa-shield-alt text-primary mr-2.5 text-xs md:text-sm mt-0.5"></i>
+                        <span class="text-slate-600 dark:text-slate-300 text-xs md:text-sm">请合理使用资源，禁止滥用或二次分发</span>
                     </div>
-                    <div class="flex items-start p-2 md:p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                        <i class="fas fa-plus-circle text-green-500 mr-2 md:mr-3 text-xs md:text-sm mt-1"></i>
-                        <span class="text-green-700 dark:text-green-300 text-xs md:text-sm">添加额度请私信我 看到会回</span>
+                    <div class="flex items-start p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700">
+                        <i class="fas fa-plus-circle text-primary mr-2.5 text-xs md:text-sm mt-0.5"></i>
+                        <span class="text-slate-600 dark:text-slate-300 text-xs md:text-sm">如需增加额度，请联系管理员</span>
                     </div>
-                    <div class="flex items-start p-2 md:p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                        <i class="fas fa-gift text-purple-500 mr-2 md:mr-3 text-xs md:text-sm mt-1"></i>
-                        <span class="text-purple-700 dark:text-purple-300 text-xs md:text-sm">贡献openrouter
-                            或者魔搭的freekey换取超大额度</span>
+                    <div class="flex items-start p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700">
+                        <i class="fas fa-gift text-primary mr-2.5 text-xs md:text-sm mt-0.5"></i>
+                        <span class="text-slate-600 dark:text-slate-300 text-xs md:text-sm">贡献 Key 可换取更高额度</span>
                     </div>
-                    <!-- 原有使用规范内容 -->
-                    <div class="flex items-start p-2 md:p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                        <i class="fas fa-ban text-red-500 mr-2 md:mr-3 text-xs md:text-sm mt-1"></i>
-                        <span class="text-red-700 dark:text-red-300 text-xs md:text-sm">禁止二次分发</span>
-                    </div>
-                    <div class="flex items-start p-2 md:p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
-                        <i class="fas fa-exclamation-triangle text-orange-500 mr-2 md:mr-3 text-xs md:text-sm mt-1"></i>
-                        <span class="text-orange-700 dark:text-orange-300 text-xs md:text-sm">禁止滥用服务</span>
-                    </div>
-                    <div class="flex items-start p-2 md:p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
-                        <i class="fas fa-graduation-cap text-indigo-500 mr-2 md:mr-3 text-xs md:text-sm mt-1"></i>
-                        <span class="text-indigo-700 dark:text-indigo-300 text-xs md:text-sm">仅限个人学习和研究使用</span>
-                    </div>
-                    <div class="flex items-start p-2 md:p-3 bg-gray-50 dark:bg-gray-900/20 rounded-lg">
-                        <i class="fas fa-cookie-bite text-gray-500 mr-2 md:mr-3 text-xs md:text-sm mt-1"></i>
-                        <span class="text-gray-700 dark:text-gray-300 text-xs md:text-sm">登录失败时清除网站cookie重新登录即可</span>
+                    <div class="flex items-start p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700">
+                        <i class="fas fa-cookie text-primary mr-2.5 text-xs md:text-sm mt-0.5"></i>
+                        <span class="text-slate-600 dark:text-slate-300 text-xs md:text-sm">登录失败时请尝试清除 Cookie</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- 支持的 AI 模型部分 -->
-        <section class="w-full max-w-7xl mx-auto px-4 py-8 md:py-12 animate-fade-in" style="animation-delay: 2.1s">
-            <div class="text-center mb-6 md:mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-3">
-                    <i class="fas fa-brain text-primary mr-2"></i>支持的 AI 模型
+        <section class="w-full max-w-5xl mx-auto px-4 py-8 animate-fade-in" style="animation-delay: 2.1s">
+            <div class="text-center mb-6">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
+                    <i class="fas fa-cubes text-primary mr-2"></i>支持的模型矩阵
                 </h2>
-                <p class="text-gray-600 dark:text-gray-300 text-sm md:text-base max-w-2xl mx-auto mb-2">
-                    提供多样化、免费的 AI 模型访问，让每个人都能体验最前沿的人工智能技术
+                <p class="text-gray-500 dark:text-gray-400 text-xs md:text-sm max-w-xl mx-auto mb-4">
+                    聚合全球领先的 AI 模型，提供稳定、高速的 API 接入服务
                 </p>
 
                 <!-- 刷新按钮和更新时间 -->
@@ -1074,9 +1121,9 @@
             </div>
 
             <!-- 统一模型展示 -->
-            <div class="max-w-6xl mx-auto">
+            <div class="max-w-5xl mx-auto">
                 <div
-                    class="backdrop-blur bg-cardBg dark:bg-darkCard rounded-2xl card-shadow p-4 md:p-6 transition-all duration-500 hover:shadow-2xl">
+                    class="backdrop-blur bg-cardBg dark:bg-darkCard rounded-xl card-shadow p-4 transition-all duration-500 hover:shadow-tech">
                     <!-- 加载中提示 -->
                     <div id="models-loading" class="text-center py-12">
                         <div class="inline-block">
@@ -1112,44 +1159,44 @@
             </div>
 
             <!-- 模型统计信息 -->
-            <div class="mt-6 md:mt-8">
+            <div class="mt-6">
                 <div
-                    class="glass-card backdrop-blur rounded-xl card-shadow p-4 md:p-6 max-w-4xl mx-auto">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    class="glass-card backdrop-blur rounded-xl card-shadow p-4 max-w-3xl mx-auto">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div
-                            class="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-                            <div class="text-2xl md:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1 count-animation">
+                            class="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700 transition-all duration-300 hover:border-primary/30">
+                            <div class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1 count-animation">
                                 <span id="model-count">--</span>
                             </div>
-                            <div class="text-xs text-gray-600 dark:text-gray-300 font-medium">
-                                <i class="fas fa-layer-group mr-1"></i>总模型数
+                            <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                                <i class="fas fa-layer-group mr-1 text-primary"></i>总模型数
                             </div>
                         </div>
                         <div
-                            class="text-center p-3 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-                            <div class="text-2xl md:text-3xl font-bold text-green-600 dark:text-green-400 mb-1">
+                            class="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700 transition-all duration-300 hover:border-primary/30">
+                            <div class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
                                 <i class="fas fa-infinity animate-pulse-gentle"></i>
                             </div>
-                            <div class="text-xs text-gray-600 dark:text-gray-300 font-medium">
-                                <i class="fas fa-gift mr-1"></i>完全免费
+                            <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                                <i class="fas fa-gift mr-1 text-primary"></i>完全免费
                             </div>
                         </div>
                         <div
-                            class="text-center p-3 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-                            <div class="text-2xl md:text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">
+                            class="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700 transition-all duration-300 hover:border-primary/30">
+                            <div class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
                                 <i class="fas fa-bolt animate-pulse-gentle"></i>
                             </div>
-                            <div class="text-xs text-gray-600 dark:text-gray-300 font-medium">
-                                <i class="fas fa-tachometer-alt mr-1"></i>高速响应
+                            <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                                <i class="fas fa-tachometer-alt mr-1 text-primary"></i>高速响应
                             </div>
                         </div>
                         <div
-                            class="text-center p-3 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-                            <div class="text-2xl md:text-3xl font-bold text-orange-600 dark:text-orange-400 mb-1">
+                            class="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700 transition-all duration-300 hover:border-primary/30">
+                            <div class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
                                 <i class="fas fa-sync-alt icon-spin-hover"></i>
                             </div>
-                            <div class="text-xs text-gray-600 dark:text-gray-300 font-medium">
-                                <i class="fas fa-clock mr-1"></i>持续更新
+                            <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                                <i class="fas fa-clock mr-1 text-primary"></i>持续更新
                             </div>
                         </div>
                     </div>
@@ -1158,53 +1205,42 @@
         </section>
 
         <!-- 使用指南与教程 -->
-        <section id="guide" class="py-16 bg-white dark:bg-gray-900 relative overflow-hidden w-full">
+        <section id="guide" class="py-10 bg-white dark:bg-darkBg relative overflow-hidden w-full border-t border-gray-100 dark:border-slate-800">
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="text-center mb-12">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-8">
                     <div
-                        class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-xl mb-4 animate-float-gentle">
-                        <i class="fas fa-rocket text-white text-xl"></i>
+                        class="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-r from-primary to-primaryDark rounded-lg shadow-lg mb-3 animate-float-gentle">
+                        <i class="fas fa-book text-white text-lg"></i>
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                        <span
-                            class="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400">
-                            使用指南与教程
-                        </span>
+                    <h2 class="text-2xl md:text-3xl font-bold mb-3 text-gray-900 dark:text-white tracking-tight">
+                        接入指南
                     </h2>
-                    <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6">
-                        专业级 AI 接入解决方案，支持多种主流工具和平台<br>
-                        <span class="text-primary font-semibold">选择最适合您的方式，立即开始体验前沿 AI 技术</span>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed mb-4">
+                        支持多种主流开发工具与平台，快速集成 AI 能力
                     </p>
 
                     <!-- 核心特色指标 -->
-                    <div class="flex flex-wrap justify-center gap-4 mb-6">
+                    <div class="flex flex-wrap justify-center gap-3 mb-6">
                         <div
-                            class="bg-white/70 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl px-3 py-2 border border-white/30 dark:border-gray-600/40">
-                            <div class="flex items-center text-sm">
-                                <i class="fas fa-shield-check text-emerald-500 dark:text-emerald-400 mr-2"></i>
-                                <span class="text-gray-700 dark:text-gray-200 font-medium">安全稳定</span>
+                            class="bg-slate-50 dark:bg-slate-800/50 backdrop-blur-sm rounded-lg px-3 py-1.5 border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center text-xs">
+                                <i class="fas fa-shield-check text-primary mr-1.5"></i>
+                                <span class="text-slate-600 dark:text-slate-300 font-medium">安全稳定</span>
                             </div>
                         </div>
                         <div
-                            class="bg-white/70 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl px-3 py-2 border border-white/30 dark:border-gray-600/40">
-                            <div class="flex items-center text-sm">
-                                <i class="fas fa-bolt text-yellow-500 dark:text-yellow-400 mr-2"></i>
-                                <span class="text-gray-700 dark:text-gray-200 font-medium">高性能</span>
+                            class="bg-slate-50 dark:bg-slate-800/50 backdrop-blur-sm rounded-lg px-3 py-1.5 border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center text-xs">
+                                <i class="fas fa-bolt text-primary mr-1.5"></i>
+                                <span class="text-slate-600 dark:text-slate-300 font-medium">高性能</span>
                             </div>
                         </div>
                         <div
-                            class="bg-white/70 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl px-3 py-2 border border-white/30 dark:border-gray-600/40">
-                            <div class="flex items-center text-sm">
-                                <i class="fas fa-heart text-red-500 dark:text-red-400 mr-2"></i>
-                                <span class="text-gray-700 dark:text-gray-200 font-medium">免费公益</span>
-                            </div>
-                        </div>
-                        <div
-                            class="bg-white/70 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl px-3 py-2 border border-white/30 dark:border-gray-600/40">
-                            <div class="flex items-center text-sm">
-                                <i class="fas fa-users text-blue-500 dark:text-blue-400 mr-2"></i>
-                                <span class="text-gray-700 dark:text-gray-200 font-medium">服务大众</span>
+                            class="bg-slate-50 dark:bg-slate-800/50 backdrop-blur-sm rounded-lg px-3 py-1.5 border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center text-xs">
+                                <i class="fas fa-heart text-primary mr-1.5"></i>
+                                <span class="text-slate-600 dark:text-slate-300 font-medium">免费公益</span>
                             </div>
                         </div>
                     </div>
@@ -1215,12 +1251,12 @@
                 </div>
 
                 <!-- 选项卡按钮 - 修复版本 -->
-                <div class="flex justify-center mb-8">
+                <div class="flex justify-center mb-6">
                     <div
-                        class="backdrop-blur-lg bg-white/80 dark:bg-gray-800/80 rounded-2xl p-2 shadow-2xl border border-gray-200/50 dark:border-gray-700/50 w-full max-w-7xl">
-                        <div class="grid grid-cols-3 gap-2">
+                        class="backdrop-blur-lg bg-white/80 dark:bg-slate-800/80 rounded-xl p-1.5 shadow-lg border border-gray-200/50 dark:border-slate-700/50 w-full max-w-3xl">
+                        <div class="grid grid-cols-3 gap-1.5">
                             <button id="btn-roocode"
-                                class="tab-button group px-3 py-3 rounded-xl font-semibold tab-button-active transform transition-all duration-300 hover:scale-105 text-sm relative overflow-hidden">
+                                class="tab-button group px-3 py-2.5 rounded-lg font-medium tab-button-active transform transition-all duration-300 hover:scale-[1.02] text-sm relative overflow-hidden">
                                 <div class="relative z-10 flex flex-col items-center">
                                     <div class="flex items-center mb-1">
                                         <img src="https://roocode.com/favicon.ico" alt="roocode"
@@ -1237,7 +1273,7 @@
                                 </div>
                             </button>
                             <button id="btn-claude"
-                                class="tab-button group px-3 py-3 rounded-xl font-semibold tab-button-inactive hover:bg-white/50 dark:hover:bg-gray-700/50 transition-all duration-300 hover:scale-105 text-sm relative overflow-hidden border border-transparent hover:border-purple-200 dark:hover:border-purple-700">
+                                class="tab-button group px-3 py-2.5 rounded-lg font-medium tab-button-inactive hover:bg-white/50 dark:hover:bg-slate-700/50 transition-all duration-300 hover:scale-[1.02] text-sm relative overflow-hidden border border-transparent hover:border-gray-200 dark:hover:border-slate-600">
                                 <div class="flex flex-col items-center">
                                     <div class="flex items-center mb-1">
                                         <img src="https://claude.ai/favicon.ico" alt="Claude"
@@ -1251,7 +1287,7 @@
                                 </div>
                             </button>
                             <button id="btn-cherry"
-                                class="tab-button group px-3 py-3 rounded-xl font-semibold tab-button-inactive hover:bg-white/50 dark:hover:bg-gray-700/50 transition-all duration-300 hover:scale-105 text-sm relative overflow-hidden border border-transparent hover:border-pink-200 dark:hover:border-pink-700">
+                                class="tab-button group px-3 py-2.5 rounded-lg font-medium tab-button-inactive hover:bg-white/50 dark:hover:bg-slate-700/50 transition-all duration-300 hover:scale-[1.02] text-sm relative overflow-hidden border border-transparent hover:border-gray-200 dark:hover:border-slate-600">
                                 <div class="flex flex-col items-center">
                                     <div class="flex items-center mb-1">
                                         <img src="https://cherrystudiocn.com/favicon.ico" alt="Cherry Studio"
@@ -1269,19 +1305,19 @@
                 </div>
 
                 <!-- roocode & kilocode 教程 -->
-                <div id="platform-roocode" class="platform-content">
+                <div id="platform-roocode" class="platform-content max-w-4xl mx-auto">
                     <div
-                        class="backdrop-blur bg-cardBg dark:bg-darkCard rounded-2xl card-shadow p-6 mb-6 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-1">
-                        <div class="flex items-center mb-6">
+                        class="backdrop-blur bg-cardBg dark:bg-darkCard rounded-xl card-shadow p-5 mb-6 transition-all duration-500 hover:shadow-tech transform hover:-translate-y-1">
+                        <div class="flex items-center mb-5">
                             <div
-                                class="w-10 h-10 mr-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 flex items-center justify-center shadow-lg">
-                                <img src="https://roocode.com/favicon.ico" alt="roocode" class="w-6 h-6"
+                                class="w-10 h-10 mr-3 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 flex items-center justify-center shadow-sm">
+                                <img src="https://roocode.com/favicon.ico" alt="roocode" class="w-5 h-5"
                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <i class="fas fa-code text-blue-500 text-lg hidden"></i>
+                                <i class="fas fa-code text-primary text-lg hidden"></i>
                             </div>
                             <div>
-                                <h3 class="text-2xl font-bold text-gray-800 dark:text-white">roocode & kilocode 配置</h3>
-                                <p class="text-gray-600 dark:text-gray-300 mt-1">专业的 AI 编程工具配置指南</p>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white">roocode & kilocode</h3>
+                                <p class="text-gray-500 dark:text-gray-400 text-xs">AI 编程助手配置指南</p>
                             </div>
                         </div>
 
@@ -1304,12 +1340,12 @@
                                             <div class="bg-gray-900 rounded overflow-hidden">
                                                 <div class="flex items-center justify-between p-2 bg-gray-800">
                                                     <span class="text-gray-300 font-mono text-xs">API URL</span>
-                                                    <button onclick="copyToClipboard('https://api.kkyyxx.xyz/v1')"
+                                                    <button onclick="copyToClipboard('https://kfc-api.sxxe.net/v1')"
                                                         class="text-gray-400 hover:text-white transition-colors text-xs">复制</button>
                                                 </div>
                                                 <div class="p-2">
                                                     <code
-                                                        class="text-green-400 text-xs">https://api.kkyyxx.xyz/v1</code>
+                                                        class="text-green-400 text-xs">https://kfc-api.sxxe.net/v1</code>
                                                 </div>
                                             </div>
                                         </div>
@@ -1344,7 +1380,7 @@
                                             </h5>
                                             <div class="flex flex-wrap gap-2">
                                                 <button
-                                                    onclick="window.open('https://api.kkyyxx.xyz/console/token', '_blank')"
+                                                    onclick="window.open('https://kfc-api.sxxe.net/console/token', '_blank')"
                                                     class="inline-flex items-center gap-1 bg-gradient-to-r from-primary to-primaryDark hover:from-primaryDark hover:to-primary text-white font-medium py-1.5 px-3 rounded transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-xs">
                                                     <i class="fas fa-key text-xs"></i>
                                                     <span>获取 API 密钥</span>
@@ -1412,19 +1448,19 @@
                 </div>
 
                 <!-- Claude Code 教程 -->
-                <div id="platform-claude" class="platform-content hidden">
+                <div id="platform-claude" class="platform-content hidden max-w-4xl mx-auto">
                     <div
-                        class="backdrop-blur bg-cardBg dark:bg-darkCard rounded-2xl card-shadow p-4 mb-4 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-1">
+                        class="backdrop-blur bg-cardBg dark:bg-darkCard rounded-xl card-shadow p-5 mb-4 transition-all duration-500 hover:shadow-tech transform hover:-translate-y-1">
                         <div class="flex items-center mb-4">
                             <div
-                                class="w-8 h-8 mr-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 flex items-center justify-center shadow-lg">
+                                class="w-8 h-8 mr-3 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 flex items-center justify-center shadow-sm">
                                 <img src="https://claude.ai/favicon.ico" alt="Claude" class="w-5 h-5"
                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <i class="fas fa-brain text-purple-500 text-sm hidden"></i>
+                                <i class="fas fa-brain text-primary text-sm hidden"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-gray-800 dark:text-white">Claude Code 配置</h3>
-                                <p class="text-gray-600 dark:text-gray-300 text-xs">Anthropic 官方 AI 编程助手配置指南</p>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Claude Code</h3>
+                                <p class="text-gray-500 dark:text-gray-400 text-xs">Anthropic 官方工具配置</p>
                             </div>
                         </div>
 
@@ -1440,17 +1476,17 @@
                                     <div>
                                         <div class="flex items-center justify-between mb-1">
                                             <span class="text-gray-700 dark:text-gray-300 font-medium">Base URL:</span>
-                                            <button onclick="copyToClipboard('https://api.kkyyxx.xyz')"
+                                            <button onclick="copyToClipboard('https://kfc-api.sxxe.net')"
                                                 class="text-primary hover:text-primaryDark text-xs">复制</button>
                                         </div>
                                         <code
-                                            class="bg-gray-900 text-green-400 px-2 py-1 rounded text-xs block">https://api.kkyyxx.xyz</code>
+                                            class="bg-gray-900 text-green-400 px-2 py-1 rounded text-xs block">https://kfc-api.sxxe.net</code>
                                     </div>
                                     <div>
                                         <div class="flex items-center justify-between mb-1">
                                             <span class="text-gray-700 dark:text-gray-300 font-medium">API Token:</span>
                                             <button
-                                                onclick="window.open('https://api.kkyyxx.xyz/console/token', '_blank')"
+                                                onclick="window.open('https://kfc-api.sxxe.net/console/token', '_blank')"
                                                 class="text-primary hover:text-primaryDark text-xs">获取</button>
                                         </div>
                                         <code
@@ -1496,7 +1532,7 @@
                                     <pre class="p-2 text-green-400 text-xs overflow-x-auto"><code>{
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "your-api-key-here",
-    "ANTHROPIC_BASE_URL": "https://api.kkyyxx.xyz"
+    "ANTHROPIC_BASE_URL": "https://kfc-api.sxxe.net"
   }
 }</code></pre>
                                 </div>
@@ -1547,7 +1583,7 @@
                                     <i class="fas fa-external-link-alt text-xs"></i>
                                     <span>官方文档</span>
                                 </button>
-                                <button onclick="window.open('https://api.kkyyxx.xyz/console/token', '_blank')"
+                                <button onclick="window.open('https://kfc-api.sxxe.net/console/token', '_blank')"
                                     class="inline-flex items-center gap-1 bg-primary hover:bg-primaryDark text-white font-medium py-1.5 px-3 rounded-lg transition-all duration-300 text-xs">
                                     <i class="fas fa-key text-xs"></i>
                                     <span>获取密钥</span>
@@ -1558,19 +1594,19 @@
                 </div>
 
                 <!-- Cherry Studio 教程 -->
-                <div id="platform-cherry" class="platform-content hidden">
+                <div id="platform-cherry" class="platform-content hidden max-w-4xl mx-auto">
                     <div
-                        class="backdrop-blur bg-cardBg dark:bg-darkCard rounded-2xl card-shadow p-4 mb-4 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-1">
+                        class="backdrop-blur bg-cardBg dark:bg-darkCard rounded-xl card-shadow p-5 mb-4 transition-all duration-500 hover:shadow-tech transform hover:-translate-y-1">
                         <div class="flex items-center mb-4">
                             <div
-                                class="w-8 h-8 mr-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 flex items-center justify-center shadow-lg">
+                                class="w-8 h-8 mr-3 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 flex items-center justify-center shadow-sm">
                                 <img src="https://cherrystudiocn.com/favicon.ico" alt="Cherry Studio" class="w-5 h-5"
                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <i class="fas fa-desktop text-pink-500 text-sm hidden"></i>
+                                <i class="fas fa-desktop text-primary text-sm hidden"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-gray-800 dark:text-white">Cherry Studio 配置</h3>
-                                <p class="text-gray-600 dark:text-gray-300 text-xs">跨平台 AI 桌面客户端配置指南</p>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Cherry Studio</h3>
+                                <p class="text-gray-500 dark:text-gray-400 text-xs">跨平台桌面客户端配置</p>
                             </div>
                         </div>
 
@@ -1586,17 +1622,17 @@
                                     <div>
                                         <div class="flex items-center justify-between mb-1">
                                             <span class="text-gray-700 dark:text-gray-300 font-medium">API 地址:</span>
-                                            <button onclick="copyToClipboard('https://api.kkyyxx.xyz')"
+                                            <button onclick="copyToClipboard('https://kfc-api.sxxe.net')"
                                                 class="text-primary hover:text-primaryDark text-xs">复制</button>
                                         </div>
                                         <code
-                                            class="bg-gray-900 text-green-400 px-2 py-1 rounded text-xs block">https://api.kkyyxx.xyz</code>
+                                            class="bg-gray-900 text-green-400 px-2 py-1 rounded text-xs block">https://kfc-api.sxxe.net</code>
                                     </div>
                                     <div>
                                         <div class="flex items-center justify-between mb-1">
                                             <span class="text-gray-700 dark:text-gray-300 font-medium">API 密钥:</span>
                                             <button
-                                                onclick="window.open('https://api.kkyyxx.xyz/console/token', '_blank')"
+                                                onclick="window.open('https://kfc-api.sxxe.net/console/token', '_blank')"
                                                 class="text-primary hover:text-primaryDark text-xs">获取</button>
                                         </div>
                                         <code
@@ -1649,7 +1685,7 @@
                                     <i class="fas fa-download text-xs"></i>
                                     <span>下载客户端</span>
                                 </button>
-                                <button onclick="window.open('https://api.kkyyxx.xyz/console/token', '_blank')"
+                                <button onclick="window.open('https://kfc-api.sxxe.net/console/token', '_blank')"
                                     class="inline-flex items-center gap-1 bg-primary hover:bg-primaryDark text-white font-medium py-1.5 px-3 rounded-lg transition-all duration-300 text-xs">
                                     <i class="fas fa-key text-xs"></i>
                                     <span>获取密钥</span>
@@ -1663,88 +1699,60 @@
     </main>
 
     <!-- 常见问题Q&A -->
-    <section id="faq" class="py-20 bg-gray-50 dark:bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-20">
-                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">常见问题Q&A</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-teal-500 to-cyan-500 mx-auto mt-6 rounded-full"></div>
+    <section id="faq" class="py-12 bg-lightBg dark:bg-darkBg border-t border-gray-100 dark:border-slate-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">常见问题</h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
             </div>
 
-            <div class="grid md:grid-cols-1 gap-8">
-                <div class="bg-white dark:bg-gray-900 p-10 rounded-2xl shadow-lg">
-                    <h3 class="text-2xl font-semibold mb-8 flex items-center text-gray-900 dark:text-white">
-                        <svg class="w-6 h-6 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        常见问题Q&A
-                    </h3>
-                    <div class="space-y-8">
+            <div class="grid md:grid-cols-1 gap-6">
+                <div class="bg-white dark:bg-slate-800/50 p-6 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm">
+                    <div class="space-y-4">
                         <div
-                            class="bg-emerald-50 dark:bg-emerald-900/20 border-l-4 border-emerald-400 p-6 rounded-r-xl">
+                            class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4 rounded-lg transition-all duration-300 hover:border-primary/30">
                             <h4
-                                class="font-semibold text-emerald-800 dark:text-emerald-200 mb-3 flex items-center text-lg">
-                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
+                                class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center text-base">
+                                <i class="fas fa-question-circle text-primary mr-2"></i>
                                 是否完全免费？
                             </h4>
-                            <p class="text-emerald-700 dark:text-emerald-300">
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed pl-6">
                                 是。公益站永久免费，采用公平限流策略以保障服务稳定。致力于让每个人都能体验前沿的人工智能技术。</p>
                         </div>
 
-                        <div class="bg-purple-50 dark:bg-purple-900/20 border-l-4 border-purple-400 p-6 rounded-r-xl">
+                        <div class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4 rounded-lg transition-all duration-300 hover:border-primary/30">
                             <h4
-                                class="font-semibold text-purple-800 dark:text-purple-200 mb-3 flex items-center text-lg">
-                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
+                                class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center text-base">
+                                <i class="fas fa-hands-helping text-primary mr-2"></i>
                                 如何参与贡献？
                             </h4>
-                            <p class="text-purple-700 dark:text-purple-300">可提供免费渠道2api、openrouterkey 魔搭免费key
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed pl-6">可提供免费渠道2api、openrouterkey 魔搭免费key
                                 欢迎开用户共同参与项目建设。</p>
                         </div>
 
-
-                        <div class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-400 p-6 rounded-r-xl">
-                            <h4 class="font-semibold text-red-800 dark:text-red-200 mb-3 flex items-center text-lg">
-                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
+                        <div class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4 rounded-lg transition-all duration-300 hover:border-primary/30">
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center text-base">
+                                <i class="fas fa-exclamation-circle text-primary mr-2"></i>
                                 为什么报错 No active API keys available for this group？
                             </h4>
-                            <p class="text-red-700 dark:text-red-300">在gpt-load的key失败多次拉黑失效了,更换模型或者等10分钟左右,或者渠道燃尽了</p>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed pl-6">在gpt-load的key失败多次拉黑失效了,更换模型或者等10分钟左右,或者渠道燃尽了</p>
                         </div>
 
-                        <div class="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-400 p-6 rounded-r-xl">
-                            <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-3 flex items-center text-lg">
-                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
+                        <div class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4 rounded-lg transition-all duration-300 hover:border-primary/30">
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center text-base">
+                                <i class="fas fa-check-circle text-primary mr-2"></i>
                                 是否可以NFSW？
                             </h4>
-                            <p class="text-blue-700 dark:text-blue-300">应该是可以的</p>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed pl-6">应该是可以的</p>
                         </div>
 
-                        <div class="bg-indigo-50 dark:bg-indigo-900/20 border-l-4 border-indigo-400 p-6 rounded-r-xl">
+                        <div class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4 rounded-lg transition-all duration-300 hover:border-primary/30">
                             <h4
-                                class="font-semibold text-indigo-800 dark:text-indigo-200 mb-3 flex items-center text-lg">
-                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
+                                class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center text-base">
+                                <i class="fas fa-bolt text-primary mr-2"></i>
                                 可以开启高并发吗？
                             </h4>
-                            <p class="text-indigo-700 dark:text-indigo-300">12rpm 应该够， 或者私信我</p>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed pl-6">12rpm 应该够， 或者私信我</p>
                         </div>
 
                     </div>
@@ -1758,6 +1766,130 @@
         class="fixed bottom-8 md:bottom-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-primary via-primaryDark to-primary text-white px-6 py-3 md:px-8 md:py-4 rounded-2xl shadow-2xl text-base md:text-lg font-bold opacity-0 pointer-events-none transition-all duration-500 ease-out flex items-center z-50 backdrop-blur-sm border border-white/20">
         <i class="fas fa-check-circle text-lg md:text-xl mr-2 md:mr-3 animate-bounce"></i>
         <span class="relative z-10">已复制到剪贴板！</span>
+    </div>
+
+    <!-- 用户协议弹窗 -->
+    <div id="disclaimer-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <!-- 头部：渐变背景 -->
+            <div class="p-6 border-b border-gray-200 dark:border-slate-700 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-slate-800 dark:to-slate-900 flex-shrink-0 relative overflow-hidden">
+                <!-- 装饰光效 -->
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-primary opacity-80"></div>
+                
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white flex items-center justify-center relative z-10">
+                    <i class="fas fa-shield-alt text-primary mr-3"></i>
+                    KFC公益 API 站点 —— 免责声明与服务协议
+                </h3>
+                <p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-2 relative z-10">
+                    <span class="inline-block px-2 py-0.5 bg-gray-200 dark:bg-slate-700 rounded text-gray-600 dark:text-gray-300 mr-2">生效日期：2025年11月18日</span>
+                    <span class="inline-block px-2 py-0.5 bg-primary/10 text-primary rounded">发布平台：仅限 Linux Do 社区</span>
+                </p>
+            </div>
+            
+            <div class="modal-body text-gray-600 dark:text-gray-300 p-6 md:p-8 overflow-y-auto flex-grow custom-scrollbar">
+                <!-- 核心警告 -->
+                <div class="bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-xl p-4 mb-8 text-center shadow-sm relative overflow-hidden group hover:shadow-md transition-all duration-300">
+                    <div class="absolute inset-0 bg-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <p class="text-red-600 dark:text-red-400 font-bold text-lg mb-2 relative z-10">
+                        <i class="fas fa-exclamation-triangle mr-2 animate-pulse"></i>
+                        本站完全免费！暂无任何充值通道！请勿上当受骗！
+                    </p>
+                    <p class="text-red-500 dark:text-red-300 text-sm relative z-10">
+                        如无法注册，则本站用户数量暂时饱和，请耐心等待再次开放
+                    </p>
+                </div>
+
+                <!-- 网格布局 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed">
+                    <!-- 1. 站点性质 -->
+                    <section class="bg-gray-50 dark:bg-slate-800/30 p-4 rounded-xl border border-gray-100 dark:border-slate-700/50 hover:border-primary/20 transition-colors duration-300">
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-3 flex items-center text-base">
+                            <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2 shadow-sm">1</span>
+                            站点性质与非官方声明
+                        </h4>
+                        <div class="pl-2 space-y-2 text-gray-700 dark:text-gray-300 text-xs">
+                            <p><strong class="text-gray-900 dark:text-white">纯公益运营：</strong> 本项目系个人自费运营的公益资助项目，旨在为开发者和学术研究者提供无偿的模型调用额度。</p>
+                            <p><strong class="text-gray-900 dark:text-white">非官方关联：</strong> 本站独立运营，与 OpenAI、Google (Alphabet)、Anthropic、Microsoft、Meta、Midjourney 等任何主流 AI 厂商及第三方服务商无任何官方关联、商业合作或担保关系。</p>
+                            <p><strong class="text-gray-900 dark:text-white">无商业属性：</strong> 本站所提供的服务不构成任何形式的合同、雇佣、合伙或委托关系。</p>
+                        </div>
+                    </section>
+
+                    <!-- 2. 免费声明 -->
+                    <section class="bg-gray-50 dark:bg-slate-800/30 p-4 rounded-xl border border-gray-100 dark:border-slate-700/50 hover:border-primary/20 transition-colors duration-300">
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-3 flex items-center text-base">
+                            <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2 shadow-sm">2</span>
+                            免费声明与防骗提醒
+                        </h4>
+                        <div class="pl-2 space-y-2 text-gray-700 dark:text-gray-300 text-xs">
+                            <p><strong class="text-gray-900 dark:text-white">完全免费：</strong> 本站坚持纯公益原则，没有任何充值接口，暂无任何收费计划。</p>
+                            <p><strong class="text-gray-900 dark:text-white">防骗警示：</strong> 请勿轻信任何声称代表本站的收费、代充或所谓“VIP通道”的信息。谨防上当受骗。</p>
+                        </div>
+                    </section>
+
+                    <!-- 3. 合规使用 -->
+                    <section class="bg-gray-50 dark:bg-slate-800/30 p-4 rounded-xl border border-gray-100 dark:border-slate-700/50 hover:border-primary/20 transition-colors duration-300">
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-3 flex items-center text-base">
+                            <span class="bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2 shadow-sm">3</span>
+                            合规使用与行为准则
+                        </h4>
+                        <div class="pl-2 space-y-2 text-gray-700 dark:text-gray-300 text-xs">
+                            <p>根据《生成式人工智能服务管理暂行办法》规定（自 2023 年 08 月 15 日起施行），用户在使用本站服务时必须严格遵守以下规定：</p>
+                            <ul class="list-disc pl-4 space-y-1 mt-1">
+                                <li><strong class="text-gray-900 dark:text-white">合法用途：</strong> 申请与使用须仅用于开源开发、公益项目、学术研究等正当目的。严禁用于违反中国法律法规、出口管制政策及相关平台服务条款的行为。</li>
+                                <li><strong class="text-gray-900 dark:text-white">内容规范：</strong> 严禁生成违法、侵权、暴力、色情、政治敏感或侵犯他人隐私的内容。</li>
+                                <li><strong class="text-gray-900 dark:text-white">特别提示：</strong> 使用 Claude 系列模型时，请务必注意内容合规，尽量避免涉及 NSFW（Not Safe For Work）内容，以免引发风控。</li>
+                                <li><strong class="text-gray-900 dark:text-white">禁止滥用：</strong> 严禁进行恶意请求、DDoS 攻击、高频并发刷接口或其他任何可能导致服务器负载过高或损坏的行为。</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 4. 账户管理 -->
+                    <section class="bg-gray-50 dark:bg-slate-800/30 p-4 rounded-xl border border-gray-100 dark:border-slate-700/50 hover:border-primary/20 transition-colors duration-300">
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-3 flex items-center text-base">
+                            <span class="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2 shadow-sm">4</span>
+                            账户管理与违规处理机制
+                        </h4>
+                        <div class="pl-2 space-y-2 text-gray-700 dark:text-gray-300 text-xs">
+                            <p><strong class="text-gray-900 dark:text-white">沟通优先：</strong> 若发现账户存在滥用或异常行为，本站承诺会优先尝试与用户联系咨询情况。</p>
+                            <p><strong class="text-gray-900 dark:text-white">保障权益：</strong> 本站保证不会在未通知且未进行商讨的情况下直接封禁账号或扣除额度（极端恶意攻击除外）。</p>
+                            <p><strong class="text-gray-900 dark:text-white">数据与责任：</strong> 使用者需对其输入、上传的数据及产生的内容自行承担全部法律责任。请勿在 Prompt 中提交受法律保护的个人隐私或商业机密。</p>
+                        </div>
+                    </section>
+
+                    <!-- 5. 服务变更 -->
+                    <section class="bg-gray-50 dark:bg-slate-800/30 p-4 rounded-xl border border-gray-100 dark:border-slate-700/50 hover:border-primary/20 transition-colors duration-300">
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-3 flex items-center text-base">
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2 shadow-sm">5</span>
+                            服务变更与不可抗力
+                        </h4>
+                        <div class="pl-2 space-y-2 text-gray-700 dark:text-gray-300 text-xs">
+                            <p><strong class="text-gray-900 dark:text-white">服务调整：</strong> 本站保留在不另行通知的情况下，对 API 接口进行调整、升级、维护或暂停服务的权利。</p>
+                            <p><strong class="text-gray-900 dark:text-white">免责条款：</strong> 本站服务按“现状”提供，不作任何明示或默示的担保。在法律允许的最大范围内，运营方对因使用或无法使用本站服务所导致的直接或间接损失不承担责任。</p>
+                        </div>
+                    </section>
+
+                    <!-- 6. 知识产权 -->
+                    <section class="bg-gray-50 dark:bg-slate-800/30 p-4 rounded-xl border border-gray-100 dark:border-slate-700/50 hover:border-primary/20 transition-colors duration-300">
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-3 flex items-center text-base">
+                            <span class="bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-300 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2 shadow-sm">6</span>
+                            知识产权与协议效力
+                        </h4>
+                        <div class="pl-2 space-y-2 text-gray-700 dark:text-gray-300 text-xs">
+                            <p><strong class="text-gray-900 dark:text-white">产出归属：</strong> 使用者应确保对提交素材拥有相应权利；产出的成果建议以开源许可证（如 MIT/Apache-2.0）发布。</p>
+                            <p><strong class="text-gray-900 dark:text-white">管辖法律：</strong> 本声明受中华人民共和国法律管辖。</p>
+                            <p><strong class="text-gray-900 dark:text-white">同意条款：</strong> <span class="font-bold text-primary dark:text-primaryLight border-b-2 border-primary/30 pb-0.5">您注册或实际使用本站服务，即表示您已阅读并完全同意本声明及其后续更新。</span></p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="p-5 border-t border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50 flex justify-center flex-shrink-0">
+                <button id="agree-btn" disabled onclick="acceptAgreement()" class="w-full max-w-md px-6 py-3 bg-gray-400 text-white font-bold rounded-xl transition-all duration-300 cursor-not-allowed flex items-center justify-center shadow-md">
+                    <span id="btn-text">请仔细阅读条款</span>
+                    <span id="countdown" class="ml-2 bg-black/20 px-2 py-0.5 rounded text-xs">5s</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1920,7 +2052,7 @@
 
         // API 配置
         const API_CONFIG = {
-            url: 'https://api.kkyyxx.xyz/v1/models',
+            url: 'https://kfc-api.sxxe.net/v1/models',
             key: 'sk-v3foVAfsKQMuEW0unLsj76DeVXMUErkqgUzd3hxIO3FU9klE'
         };
 
@@ -2185,8 +2317,70 @@
             renderModels(filtered);
         }
 
+        // 协议弹窗逻辑
+        function initModal() {
+            const modal = document.getElementById('disclaimer-modal');
+            const btn = document.getElementById('agree-btn');
+            const countdownSpan = document.getElementById('countdown');
+            
+            // 检查是否已经同意过且未过期
+            const agreement = localStorage.getItem('agreed_to_terms_v2');
+            if (agreement) {
+                const data = JSON.parse(agreement);
+                const now = new Date().getTime();
+                // 如果存在且未过期（30天），则不显示
+                if (now < data.expiry) {
+                    return;
+                }
+            }
+            
+            // 显示弹窗
+            setTimeout(() => {
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden'; // 禁止背景滚动
+            }, 500);
+            
+            // 倒计时逻辑
+            let seconds = 5;
+            const btnText = document.getElementById('btn-text');
+            
+            const timer = setInterval(() => {
+                seconds--;
+                if (seconds > 0) {
+                    countdownSpan.textContent = `${seconds}s`;
+                } else {
+                    clearInterval(timer);
+                    countdownSpan.style.display = 'none';
+                    btnText.textContent = '我已阅读并同意';
+                    btn.disabled = false;
+                    btn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                    btn.classList.add('bg-primary', 'hover:bg-primaryDark', 'shadow-lg', 'transform', 'hover:scale-105');
+                }
+            }, 1000);
+        }
+
+        function acceptAgreement() {
+            const modal = document.getElementById('disclaimer-modal');
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+            
+            // 设置30天过期时间
+            const now = new Date().getTime();
+            const expiry = now + (30 * 24 * 60 * 60 * 1000); // 30天
+            
+            const data = {
+                value: 'true',
+                expiry: expiry
+            };
+            
+            localStorage.setItem('agreed_to_terms_v2', JSON.stringify(data));
+        }
+
         // 页面加载完成后的初始化
         document.addEventListener('DOMContentLoaded', function () {
+            // 初始化协议弹窗
+            initModal();
+
             // 为选项卡按钮绑定点击事件
             document.getElementById('btn-roocode').addEventListener('click', () => showPlatform('roocode'));
             document.getElementById('btn-claude').addEventListener('click', () => showPlatform('claude'));
