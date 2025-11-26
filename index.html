@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -471,29 +472,86 @@
             }
         }
 
-        /* 主题切换按钮 - 小巧版 */
-        .theme-toggle-btn-small {
-            width: 2rem;
-            height: 2rem;
+        /* 主题切换按钮优化样式 */
+        .theme-toggle-btn {
+            position: relative;
+            width: 2.25rem;
+            height: 2.25rem;
             border-radius: 0.5rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow:
+                0 2px 4px -1px rgba(0, 0, 0, 0.08),
+                0 1px 2px -1px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        .theme-toggle-btn-small:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .theme-toggle-btn:hover {
+            transform: translateY(-1px) scale(1.05);
+            box-shadow:
+                0 4px 8px -2px rgba(0, 0, 0, 0.1),
+                0 2px 4px -1px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
-        .dark .theme-toggle-btn-small {
-            background: rgba(55, 65, 81, 0.9);
-            border: 1px solid rgba(75, 85, 99, 0.5);
+        .theme-toggle-btn:active {
+            transform: translateY(0) scale(0.98);
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* 深色主题下的特殊效果 */
+        .dark .theme-toggle-btn {
+            box-shadow:
+                0 4px 6px -1px rgba(0, 0, 0, 0.3),
+                0 2px 4px -1px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .dark .theme-toggle-btn:hover {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.4),
+                0 4px 6px -2px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        /* 主题状态指示器 */
+        .theme-toggle-btn::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .dark .theme-toggle-btn::before {
+            background: linear-gradient(45deg, #f59e0b, #d97706);
+            opacity: 1;
+            animation: pulse-indicator 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-indicator {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.2);
+            }
+        }
+
+        /* 响应式优化 */
+        @media (max-width: 768px) {
+            .theme-toggle-btn {
+                width: 2rem;
+                height: 2rem;
+            }
         }
 
         /* 深色模式文字对比度优化 */
@@ -772,14 +830,37 @@
     <div class="noise-overlay"></div>
     <div class="scanlines"></div>
 
-    <!-- 主题切换按钮 - 固定在右上角 -->
-    <button onclick="toggleTheme()" class="theme-toggle-btn-small fixed top-16 right-4 z-50 group" title="切换主题模式"
-        aria-label="切换深色/浅色主题">
-        <!-- 月亮图标 (浅色主题显示) -->
-        <i class="fas fa-moon dark:hidden text-sm text-blue-600 group-hover:text-blue-700 transition-all duration-300"></i>
-        <!-- 太阳图标 (深色主题显示) -->
-        <i class="fas fa-sun hidden dark:block text-sm text-orange-400 group-hover:text-orange-300 transition-all duration-300"></i>
-    </button>
+    <!-- 原顶部导航（保留但被透明顶栏覆盖） -->
+    <header class="flex justify-end pt-16 pr-4 md:pr-6 animate-fade-in" style="animation-delay: 0.3s">
+        <!-- 主题切换按钮 - 精简版 -->
+        <button onclick="toggleTheme()" class="theme-toggle-btn group relative overflow-hidden" title="切换主题模式"
+            aria-label="切换深色/浅色主题">
+            <!-- 背景渐变层 -->
+            <div
+                class="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 opacity-80 group-hover:opacity-100 transition-opacity duration-300 rounded-lg">
+            </div>
+
+            <!-- 边框光效 -->
+            <div
+                class="absolute inset-0 rounded-lg border border-blue-200/50 dark:border-blue-400/30 group-hover:border-blue-300/70 dark:group-hover:border-blue-300/50 transition-colors duration-300">
+            </div>
+
+            <!-- 图标容器 -->
+            <div class="relative z-10 flex items-center justify-center h-full">
+                <!-- 月亮图标 (浅色主题显示) -->
+                <i
+                    class="fas fa-moon dark:hidden text-sm text-blue-600 group-hover:text-blue-700 transition-all duration-300 group-hover:scale-110"></i>
+                <!-- 太阳图标 (深色主题显示) -->
+                <i
+                    class="fas fa-sun hidden dark:block text-sm text-orange-400 group-hover:text-orange-300 transition-all duration-300 group-hover:scale-110"></i>
+            </div>
+
+            <!-- 悬停光晕效果 -->
+            <div
+                class="absolute inset-0 rounded-lg bg-gradient-to-br from-blue-400/20 to-indigo-400/20 dark:from-orange-400/20 dark:to-yellow-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm">
+            </div>
+        </button>
+    </header>
 
     <!-- 主要内容区域 -->
     <main class="flex-grow flex flex-col items-center justify-start px-4 pt-8 pb-10 font-sans">
