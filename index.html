@@ -96,7 +96,9 @@
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">公益站</span>
                 </h1>
                 <p class="text-lg text-gray-500 dark:text-gray-400 max-w-xl mb-8 leading-relaxed">
-                    聚合全球领先 AI 模型，为开发者和研究者提供免费、稳定的 API 接入服务。让技术普惠每一个人。
+                    <span class="font-semibold text-blue-600 dark:text-blue-400">K</span>indness (善意) · <span class="font-semibold text-blue-600 dark:text-blue-400">F</span>riendly (友好) · <span class="font-semibold text-blue-600 dark:text-blue-400">C</span>ommunity (社区)<br>
+                    <span class="text-sm italic opacity-80">"A friendly community full of kindness."</span><br>
+                    一个充满善意与友好的社区服务站，聚合全球领先 AI 模型，为开发者和研究者提供免费、稳定的 API 接入服务。
                 </p>
                 
                 <div class="flex flex-wrap gap-3">
@@ -380,9 +382,13 @@
         }
 
         // --- Data & API ---
+        // 使用 Cloudflare Worker 代理解决 CORS 问题
         const API_CONFIG = {
-            url: 'https://kfc-api.sxxe.net/v1/models',
-            key: 'sk-7IyfmJMIoN14FkZ0jQMj49zzHUPx70gahWuOX789hwQA2ZqE'
+            url: 'https://quiet-darkness-94e7.kyxjames23.workers.dev/v1/models',
+            keys: [
+                'sk-7IyfmJMIoN14FkZ0jQMj49zzHUPx70gahWuOX789hwQA2ZqE',
+                'sk-OrV3NW0dmTln3IcWegJEkSqcsPl5qipVnUWbKv4fpEiUHSoc'
+            ]
         };
         let allModels = [];
 
@@ -416,41 +422,56 @@
             const countEl = document.getElementById('model-count');
 
             try {
-                // 尝试从 API 获取
-                // 添加 mode: 'cors' 和 credentials: 'omit' 尝试绕过部分限制
-                // 添加 cache: 'no-store' 避免缓存问题
-                const res = await fetch(API_CONFIG.url, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${API_CONFIG.key}`,
-                        'Content-Type': 'application/json'
-                    },
-                    mode: 'cors',
-                    credentials: 'omit'
-                });
-                
-                if (!res.ok) throw new Error(`Network error: ${res.status}`);
-                const data = await res.json();
-                allModels = (data.data || data).map(m => m.id || m);
-                
+                // 并行请求两个密钥的模型列表
+                const fetchPromises = API_CONFIG.keys.map(key =>
+                    fetch(API_CONFIG.url, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${key}`,
+                            'Content-Type': 'application/json'
+                        },
+                        mode: 'cors',
+                        credentials: 'omit'
+                    }).then(res => {
+                        if (!res.ok) throw new Error(`Network error: ${res.status}`);
+                        return res.json();
+                    }).then(data => {
+                        return (data.data || data).map(m => m.id || m);
+                    }).catch(e => {
+                        console.warn('Single API fetch failed:', e);
+                        return []; // 单个请求失败返回空数组
+                    })
+                );
+
+                const results = await Promise.all(fetchPromises);
+
+                // 合并所有结果并去重
+                const combinedModels = results.flat();
+                allModels = [...new Set(combinedModels)];
+
+                // 如果两个请求都失败了，使用后备数据
+                if (allModels.length === 0) {
+                    throw new Error('All API requests failed');
+                }
+
             } catch (e) {
                 console.warn('API fetch failed, using fallback data:', e);
                 // 如果 API 失败，使用后备数据
                 allModels = FALLBACK_MODELS;
-                
+
                 // 显示一个小的提示（可选）
                 const toast = document.getElementById('toast');
                 const toastIcon = toast.querySelector('i');
                 const toastText = toast.querySelector('span');
-                
+
                 // 临时修改 toast 显示警告
                 const originalIconClass = toastIcon.className;
                 const originalText = toastText.textContent;
-                
+
                 toastIcon.className = 'fas fa-exclamation-circle text-yellow-500';
                 toastText.textContent = '无法连接服务器，显示预设模型';
                 toast.classList.remove('opacity-0', 'translate-y-10');
-                
+
                 setTimeout(() => {
                     toast.classList.add('opacity-0', 'translate-y-10');
                     // 恢复 toast 原始状态
