@@ -19,3 +19,13 @@ yarn-error.log*
 
 # 依赖目录
 node_modules/
+index1.html
+index2.html
+index3.html
+index4.html
+backup/index.html
+backup/index1.html
+backup/index2.html
+backup/index3.html
+backup/index4.html
+backup/README.md
