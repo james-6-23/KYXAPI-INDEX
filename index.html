@@ -63,19 +63,60 @@
             scrollbar-width: none;
         }
 
-        /* Custom Scrollbar for content */
-        .custom-scrollbar::-webkit-scrollbar {
+        /* === 全局滚动条美化 === */
+        /* Webkit browsers (Chrome, Safari, Edge) */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.5);
+            /* Gray-400 with opacity */
+            border-radius: 4px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            transition: background 0.2s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(107, 114, 128, 0.8);
+            /* Gray-500 */
+        }
+
+        /* 暗黑模式全局滚动条 */
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgba(107, 114, 128, 0.6);
+        }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: rgba(156, 163, 175, 0.8);
+        }
+
+        /* 针对代码块的特殊微调 (更细一点) */
+        pre::-webkit-scrollbar,
+        code::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: rgba(156, 163, 175, 0.5);
-            border-radius: 20px;
+        .dark * {
+            scrollbar-color: rgba(107, 114, 128, 0.6) transparent;
         }
     </style>
 </head>
@@ -98,10 +139,11 @@
                         class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wide uppercase">
                         公益 · 免费 · 高速
                     </div>
-                    <button onclick="toggleTheme()"
-                        class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fas fa-moon dark:hidden"></i>
-                        <i class="fas fa-sun hidden dark:block"></i>
+                    <button onclick="cycleThemeMode()" id="theme-btn"
+                        class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors relative">
+                        <i id="icon-light" class="fas fa-sun hidden"></i>
+                        <i id="icon-dark" class="fas fa-moon hidden"></i>
+                        <i id="icon-system" class="fas fa-desktop hidden"></i>
                     </button>
                 </div>
 
@@ -462,15 +504,66 @@
     </div>
 
     <script>
-        // --- Theme Logic ---
-        function toggleTheme() {
+        // --- Advanced Theme Logic (Light -> Dark -> System) ---
+        let currentThemeMode = localStorage.getItem('theme-mode') || 'system';
+        const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function initTheme() {
+            applyTheme(currentThemeMode);
+
+            // Listen for system changes only if in system mode
+            systemThemeQuery.addEventListener('change', (e) => {
+                if (currentThemeMode === 'system') {
+                    updateDocumentClass(e.matches);
+                }
+            });
+        }
+
+        function updateDocumentClass(isDark) {
             const html = document.documentElement;
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
+            if (isDark) {
                 html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+            }
+        }
+
+        function updateThemeIcon(mode) {
+            const lightIcon = document.getElementById('icon-light');
+            const darkIcon = document.getElementById('icon-dark');
+            const systemIcon = document.getElementById('icon-system');
+
+            if (!lightIcon || !darkIcon || !systemIcon) return; // Guard against missing elements
+
+            lightIcon.classList.add('hidden');
+            darkIcon.classList.add('hidden');
+            systemIcon.classList.add('hidden');
+
+            if (mode === 'light') lightIcon.classList.remove('hidden');
+            else if (mode === 'dark') darkIcon.classList.remove('hidden');
+            else systemIcon.classList.remove('hidden');
+        }
+
+        function applyTheme(mode) {
+            currentThemeMode = mode;
+            localStorage.setItem('theme-mode', mode);
+
+            updateThemeIcon(mode);
+
+            if (mode === 'system') {
+                updateDocumentClass(systemThemeQuery.matches);
+            } else {
+                updateDocumentClass(mode === 'dark');
+            }
+        }
+
+        function cycleThemeMode() {
+            if (currentThemeMode === 'light') {
+                applyTheme('dark');
+            } else if (currentThemeMode === 'dark') {
+                applyTheme('system');
+            } else {
+                applyTheme('light');
             }
         }
 
@@ -947,6 +1040,7 @@ codex</code></pre>
 
         // Init
         document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
             loadModels();
             initDisclaimer();
 
