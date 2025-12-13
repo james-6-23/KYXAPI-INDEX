@@ -742,6 +742,30 @@
             });
         }
 
+        function copyCodexConfig() {
+            const configContent = `model_provider = "kfc-coding"          
+model = "gpt-5.2"                      # 模型名称（代理支持的实际模型，别名或部署名）
+model_reasoning_effort = "medium"      # 推荐：medium（平衡速度与推理深度）
+                                       # 可选值：none（禁用推理，最快）、minimal、low、medium（默认推荐）、high、xhigh（最强推理，但更慢更贵）
+network_access = "enabled"             # 启用网络访问（工具调用等）
+disable_response_storage = true        # 禁用响应存储（隐私或轻量）
+
+# 模型提供者配置
+[model_providers.kfc-coding]
+name = "KFC-Coding Proxy"              # 显示名称（自定义）
+base_url = "https://kfc-api.sxxe.net/v1"  # 代理基地址（OpenAI 兼容）
+wire_api = "responses"                 # 使用 Responses API（推荐 GPT-5 系列，支持高级 reasoning）
+requires_openai_auth = true            # 需要标准 OpenAI 风格的 API Key 认证`;
+            copyToClipboard(configContent);
+        }
+
+        function copyCodexAuth() {
+            const authContent = `{
+  "OPENAI_API_KEY": "粘贴为CodeX专用分组令牌key"
+}`;
+            copyToClipboard(authContent);
+        }
+
         // --- Modal Logic ---
         const guideContent = {
             kilocode: `
@@ -901,9 +925,14 @@ cd ~/.codex</code></pre>
                                     <pre class="bg-gray-900 text-gray-100 p-2 rounded-lg text-xs overflow-x-auto selection:bg-cyan-500 selection:text-white"><code>mkdir -p ~/.codex
 cd ~/.codex</code></pre>
                                 </div>
-                                <div>
+                                <div class="relative">
                                     <p class="text-xs text-gray-500 mb-1">2. 创建 <code>config.toml</code> (使用 UTF-8 编码)：</p>
-                                    <pre class="bg-gray-900 text-gray-100 p-2 rounded-lg text-xs overflow-x-auto selection:bg-cyan-500 selection:text-white"><code>model_provider = "kfc-coding"          
+                                    <div class="relative group/code">
+                                        <button onclick="copyCodexConfig()" class="absolute top-2 right-2 px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 text-xs text-gray-400 hover:text-white transition-all duration-200 opacity-0 group-hover/code:opacity-100 z-10 flex items-center gap-2 active:scale-95 hover:shadow-lg">
+                                            <i class="far fa-copy"></i>
+                                            <span class="font-medium tracking-wide">COPY</span>
+                                        </button>
+                                        <pre id="codex-config-toml" class="bg-gray-900 text-gray-100 p-3 rounded-xl text-xs overflow-x-auto selection:bg-cyan-500 selection:text-white border border-gray-800 shadow-inner"><code>model_provider = "kfc-coding"          
 model = "gpt-5.2"                      # 模型名称（代理支持的实际模型，别名或部署名）
 model_reasoning_effort = "medium"      # 推荐：medium（平衡速度与推理深度）
                                        # 可选值：none（禁用推理，最快）、minimal、low、medium（默认推荐）、high、xhigh（最强推理，但更慢更贵）
@@ -916,12 +945,19 @@ name = "KFC-Coding Proxy"              # 显示名称（自定义）
 base_url = "https://kfc-api.sxxe.net/v1"  # 代理基地址（OpenAI 兼容）
 wire_api = "responses"                 # 使用 Responses API（推荐 GPT-5 系列，支持高级 reasoning）
 requires_openai_auth = true            # 需要标准 OpenAI 风格的 API Key 认证</code></pre>
+                                    </div>
                                 </div>
-                                <div>
+                                <div class="relative">
                                     <p class="text-xs text-gray-500 mb-1">3. 创建 <code>auth.json</code>：</p>
-                                    <pre class="bg-gray-900 text-gray-100 p-2 rounded-lg text-xs overflow-x-auto selection:bg-cyan-500 selection:text-white"><code>{
+                                    <div class="relative group/code">
+                                        <button onclick="copyCodexAuth()" class="absolute top-2 right-2 px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 text-xs text-gray-400 hover:text-white transition-all duration-200 opacity-0 group-hover/code:opacity-100 z-10 flex items-center gap-2 active:scale-95 hover:shadow-lg">
+                                            <i class="far fa-copy"></i>
+                                            <span class="font-medium tracking-wide">COPY</span>
+                                        </button>
+                                        <pre id="codex-auth-json" class="bg-gray-900 text-gray-100 p-3 rounded-xl text-xs overflow-x-auto selection:bg-cyan-500 selection:text-white border border-gray-800 shadow-inner"><code>{
   "OPENAI_API_KEY": "粘贴为CodeX专用分组令牌key"
 }</code></pre>
+                                    </div>
                                 </div>
                             </div>
                         </div>
