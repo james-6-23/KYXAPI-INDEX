@@ -698,14 +698,15 @@
 
         function categorizeModel(modelName) {
             const name = modelName.toLowerCase();
-            if (name.includes('codex') || name.startsWith('code')) return 'codex';
-            if (name.startsWith('gpt') || name.includes('/gpt')) return 'gpt';
-            if (name.startsWith('claude') || name.includes('/claude')) return 'claude';
+            // Exclude cursor2- prefix from codex category
+            if (!name.startsWith('cursor2-') && (name.includes('codex') || name.startsWith('code'))) return 'codex';
+            if (name.startsWith('gpt') || name.includes('/gpt') || name.startsWith('cursor2-gpt')) return 'gpt';
+            if (name.startsWith('claude') || name.includes('/claude') || name.startsWith('cursor2-claude')) return 'claude';
             if (name.startsWith('gemini') || name.includes('/gemini')) return 'gemini';
             if (name.startsWith('glm') || name.includes('/glm')) return 'glm';
             if (name.startsWith('qwen') || name.includes('/qwen')) return 'qwen';
             if (name.startsWith('deepseek') || name.includes('/deepseek')) return 'deepseek';
-            if (name.startsWith('grok') || name.includes('/grok') || name.includes('grok-')) return 'grok';
+            if (name.startsWith('grok') || name.includes('/grok') || name.includes('grok-') || name.startsWith('cursor2-grok')) return 'grok';
             if (name.startsWith('kimi') || name.includes('/kimi') || name.includes('moonshot')) return 'kimi';
             return 'other';
         }
