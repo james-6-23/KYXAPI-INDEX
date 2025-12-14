@@ -733,13 +733,72 @@
 
         // --- UI Interactions ---
         function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
+            // 显示成功提示
+            function showSuccessToast() {
                 const toast = document.getElementById('toast');
                 toast.classList.remove('opacity-0', 'translate-y-10');
                 setTimeout(() => {
                     toast.classList.add('opacity-0', 'translate-y-10');
                 }, 2000);
-            });
+            }
+
+            // 显示失败提示
+            function showErrorToast() {
+                const toast = document.getElementById('toast');
+                const toastIcon = toast.querySelector('i');
+                const toastText = toast.querySelector('span');
+
+                const originalIconClass = toastIcon.className;
+                const originalText = toastText.textContent;
+
+                toastIcon.className = 'fas fa-times-circle text-red-500';
+                toastText.textContent = '复制失败，请手动复制';
+                toast.classList.remove('opacity-0', 'translate-y-10');
+
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'translate-y-10');
+                    setTimeout(() => {
+                        toastIcon.className = originalIconClass;
+                        toastText.textContent = originalText;
+                    }, 300);
+                }, 2000);
+            }
+
+            // 后备复制方法
+            function fallbackCopy(text) {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-9999px';
+                textArea.style.top = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+
+                try {
+                    const successful = document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    if (successful) {
+                        showSuccessToast();
+                    } else {
+                        showErrorToast();
+                    }
+                } catch (err) {
+                    document.body.removeChild(textArea);
+                    showErrorToast();
+                }
+            }
+
+            // 优先使用 Clipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showSuccessToast();
+                }).catch(() => {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
         }
 
         function copyCodexConfig() {
