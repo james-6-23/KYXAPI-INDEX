@@ -329,6 +329,9 @@
                     <button onclick="filterByCategory('kimi')"
                         class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
                         data-category="kimi">Kimi</button>
+                    <button onclick="filterByCategory('embedding')"
+                        class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
+                        data-category="embedding">Embedding</button>
                     <button onclick="filterByCategory('other')"
                         class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
                         data-category="other">其他</button>
@@ -698,6 +701,8 @@
 
         function categorizeModel(modelName) {
             const name = modelName.toLowerCase();
+            // Embedding models should be categorized first
+            if (name.includes('embedding')) return 'embedding';
             // Exclude cursor2- prefix from codex category
             if (!name.startsWith('cursor2-') && (name.includes('codex') || name.startsWith('code'))) return 'codex';
             if (name.startsWith('gpt') || name.includes('/gpt') || name.startsWith('cursor2-gpt')) return 'gpt';
